@@ -5,5 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo List</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav><ul></ul></nav>
+      <button class="new-todo-item">New todo item</button>
+    </header>
+    <main></main>
+    <dialog>
+      <form method="dialog">
+        <h2>Add todo item</h2>
+        <div class="form-row">
+          <label for="title">Title (required)</label>
+          <input type="text" name="title" id="title" required />
+        </div>
+        <div class="form-row">
+          <label for="description">Description</label>
+          <input type="text" name="description" id="description" />
+        </div>
+        <div class="form-row">
+          <label for="due-date">Due date</label>
+          <input type="date" name="due-date" id="due-date" />
+        </div>
+        <div class="form-row">
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="project">Project</label>
+          <select name="project" id="project"></select>
+        </div>
+        <button class="add-todo-item">Add todo item</button>
+      </form>
+    </dialog>
+  </body>
 </html>
