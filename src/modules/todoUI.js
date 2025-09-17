@@ -1,12 +1,28 @@
-import { todoProjects, addTodoItem } from './todoHandler';
+import { todoProjects, addTodoItem, addTodoProject } from './todoHandler';
 
 export function todoUI() {
   const navList = document.querySelector('nav ul');
-  const projSelect = document.querySelector('#project');
+  const projSelect = document.querySelector('#project-select');
   const main = document.querySelector('main');
-  const newButton = document.querySelector('.new-todo-item');
-  const dialog = document.querySelector('dialog');
-  const addButton = document.querySelector('.add-todo-item');
+  const newItemButton = document.querySelector('#new-item-btn');
+  const newItemDialog = document.querySelector('#new-item-dialog');
+  const addItemButton = document.querySelector('#add-item-btn');
+  const newProjectButton = document.querySelector('#new-project-btn');
+  const newProjectDialog = document.querySelector('#new-project-dialog');
+  const addProjectButton = document.querySelector('#add-project-btn');
+
+  function createNavItem(name) {
+    const navItem = document.createElement('li');
+    navItem.textContent = name;
+    navList.appendChild(navItem);
+  }
+
+  function createProjectOption(name) {
+    const projOption = document.createElement('option');
+    projOption.textContent = name;
+    projOption.value = name;
+    projSelect.appendChild(projOption);
+  }
 
   function createItemCard(title, desc, dueDate, proj, prio, isDone) {
     const itemCard = document.createElement('article');
@@ -36,14 +52,8 @@ export function todoUI() {
   }
 
   for (const proj of todoProjects) {
-    const navItem = document.createElement('li');
-    navItem.textContent = proj.name;
-    navList.appendChild(navItem);
-
-    const projOption = document.createElement('option');
-    projOption.textContent = proj.name;
-    projOption.value = proj.name;
-    projSelect.appendChild(projOption);
+    createNavItem(proj.name);
+    createProjectOption(proj.name);
 
     for (const item of proj.todoItems) {
       createItemCard(
@@ -57,22 +67,46 @@ export function todoUI() {
     }
   }
 
-  function handleClickNew() {
-    const form = document.querySelector('form');
-    form.reset();
-    dialog.setAttribute('open', 'open');
-  }
-  newButton.addEventListener('click', handleClickNew);
+  // Add todo item
 
-  function handleClickAdd() {
+  function handleClickNewItem() {
+    const form = document.querySelector('#new-item-form');
+    form.reset();
+    newItemDialog.setAttribute('open', 'open');
+  }
+  newItemButton.addEventListener('click', handleClickNewItem);
+
+  function handleClickAddItem() {
     const title = document.querySelector('input[name=title]').value;
     const description = document.querySelector('input[name=description]').value;
     const dueDate = document.querySelector('input[name=due-date]').value;
     const priority = document.querySelector('select[name=priority]').value;
     const project = document.querySelector('select[name=project]').value;
 
-    addTodoItem(title, description, dueDate, project, priority);
-    createItemCard(title, description, dueDate, project, priority, false);
+    if (title) {
+      addTodoItem(title, description, dueDate, project, priority);
+      createItemCard(title, description, dueDate, project, priority, false);
+    }
   }
-  addButton.addEventListener('click', handleClickAdd);
+  addItemButton.addEventListener('click', handleClickAddItem);
+
+  // Add project
+
+  function handleClickNewProject() {
+    const form = document.querySelector('#new-project-form');
+    form.reset();
+    newProjectDialog.setAttribute('open', 'open');
+  }
+  newProjectButton.addEventListener('click', handleClickNewProject);
+
+  function handleClickAddProject() {
+    const name = document.querySelector('input[name=project-name]').value;
+
+    if (name) {
+      addTodoProject(name);
+      createNavItem(name);
+      createProjectOption(name);
+    }
+  }
+  addProjectButton.addEventListener('click', handleClickAddProject);
 }

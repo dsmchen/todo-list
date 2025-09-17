@@ -7,12 +7,17 @@
   </head>
   <body>
     <header>
-      <nav><ul></ul></nav>
-      <button class="new-todo-item">New todo item</button>
+      <nav>
+        <ul>
+          <li>All</li>
+        </ul>
+      </nav>
+      <button id="new-item-btn" class="primary">New todo item</button>
+      <button id="new-project-btn" class="secondary">New project</button>
     </header>
     <main></main>
-    <dialog>
-      <form method="dialog">
+    <dialog id="new-item-dialog">
+      <form method="dialog" id="new-item-form">
         <h2>Add todo item</h2>
         <div class="form-row">
           <label for="title">Title (required)</label>
@@ -37,9 +42,19 @@
         </div>
         <div class="form-row">
           <label for="project">Project</label>
-          <select name="project" id="project"></select>
+          <select name="project" id="project-select"></select>
         </div>
-        <button class="add-todo-item">Add todo item</button>
+        <button id="add-item-btn" class="primary">Add todo item</button>
+      </form>
+    </dialog>
+    <dialog id="new-project-dialog">
+      <form method="dialog" id="new-project-form">
+        <h2>Add project</h2>
+        <div class="form-row">
+          <label for="project-name">Name (required)</label>
+          <input type="text" name="project-name" id="project-name" required />
+          <button id="add-project-btn" class="primary">Add project</button>
+        </div>
       </form>
     </dialog>
   </body>

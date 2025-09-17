@@ -8,7 +8,7 @@ class TodoProject {
   }
 }
 
-function addTodoProject(name) {
+export function addTodoProject(name) {
   let todoProject = new TodoProject(name);
   todoProjects.push(todoProject);
 }
