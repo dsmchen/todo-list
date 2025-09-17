@@ -24,14 +24,19 @@ export function todoUI() {
     projSelect.appendChild(projOption);
   }
 
-  function createItemCard(title, desc, dueDate, proj, prio, isDone) {
+  function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
     const itemCard = document.createElement('article');
     const itemTitle = document.createElement('h2');
     const itemDescription = document.createElement('p');
     const itemDueDate = document.createElement('p');
     const itemProject = document.createElement('p');
     const itemPriority = document.createElement('p');
-    const itemIsDone = document.createElement('p');
+    const itemIsDone = document.createElement('button');
+
+    itemCard.setAttribute('data-id', id);
+    itemCard.setAttribute('data-project', proj.toLowerCase());
+    itemIsDone.classList.add('is-done-btn');
+    itemIsDone.addEventListener('click', handleClickIsDone);
 
     itemTitle.textContent = title;
     itemDescription.textContent = desc;
@@ -62,7 +67,8 @@ export function todoUI() {
         item.dueDate,
         item.project,
         item.priority,
-        item.isDone
+        item.isDone,
+        item.id
       );
     }
   }
@@ -109,4 +115,22 @@ export function todoUI() {
     }
   }
   addProjectButton.addEventListener('click', handleClickAddProject);
+
+  // Toggle is done
+
+  function handleClickIsDone(event) {
+    const card = event.target.parentElement;
+    const cardID = card.getAttribute('data-id');
+    const cardProject = card.getAttribute('data-project');
+    const isDoneButton = card.querySelector('.is-done-btn');
+
+    const todoProject = todoProjects.find(
+      (element) => element.name.toLowerCase() === cardProject
+    );
+    const todoItem = todoProject.todoItems.find(
+      (element) => element.id === cardID
+    );
+    todoItem.toggleIsDone();
+    isDoneButton.textContent = `${todoItem.isDone ? true : false}`;
+  }
 }
