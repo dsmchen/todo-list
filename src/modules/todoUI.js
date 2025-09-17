@@ -30,13 +30,15 @@ export function todoUI() {
     const itemDescription = document.createElement('p');
     const itemDueDate = document.createElement('p');
     const itemProject = document.createElement('p');
-    const itemPriority = document.createElement('p');
+    const itemPriority = document.createElement('button');
     const itemIsDone = document.createElement('button');
 
     itemCard.setAttribute('data-id', id);
     itemCard.setAttribute('data-project', proj.toLowerCase());
     itemIsDone.classList.add('is-done-btn');
     itemIsDone.addEventListener('click', handleClickIsDone);
+    itemPriority.classList.add('priority-btn');
+    itemPriority.addEventListener('click', handleClickPriority);
 
     itemTitle.textContent = title;
     itemDescription.textContent = desc;
@@ -119,10 +121,10 @@ export function todoUI() {
   // Toggle is done
 
   function handleClickIsDone(event) {
+    const isDoneButton = event.target;
     const card = event.target.parentElement;
     const cardID = card.getAttribute('data-id');
     const cardProject = card.getAttribute('data-project');
-    const isDoneButton = card.querySelector('.is-done-btn');
 
     const todoProject = todoProjects.find(
       (element) => element.name.toLowerCase() === cardProject
@@ -131,6 +133,24 @@ export function todoUI() {
       (element) => element.id === cardID
     );
     todoItem.toggleIsDone();
-    isDoneButton.textContent = `${todoItem.isDone ? true : false}`;
+    isDoneButton.textContent = todoItem.isDone;
+  }
+
+  // Change priority
+
+  function handleClickPriority(event) {
+    const priorityButton = event.target;
+    const card = event.target.parentElement;
+    const cardID = card.getAttribute('data-id');
+    const cardProject = card.getAttribute('data-project');
+
+    const todoProject = todoProjects.find(
+      (element) => element.name.toLowerCase() === cardProject
+    );
+    const todoItem = todoProject.todoItems.find(
+      (element) => element.id === cardID
+    );
+    todoItem.changePriority();
+    priorityButton.textContent = todoItem.priority;
   }
 }

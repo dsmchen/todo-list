@@ -35,8 +35,12 @@ class TodoItem {
     this.id = id;
   }
 
-  changePriority(prio) {
-    this.priority = prio;
+  changePriority() {
+    if (this.priority < 4) {
+      this.priority++;
+    } else {
+      this.priority = 1;
+    }
   }
 
   toggleIsDone() {
