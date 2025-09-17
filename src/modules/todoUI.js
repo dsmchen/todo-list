@@ -10,6 +10,7 @@ export function todoUI() {
   const newProjectButton = document.querySelector('#new-project-btn');
   const newProjectDialog = document.querySelector('#new-project-dialog');
   const addProjectButton = document.querySelector('#add-project-btn');
+  const overlay = document.querySelector('.overlay');
 
   function createNavItem(name) {
     const navItem = document.createElement('li');
@@ -29,8 +30,6 @@ export function todoUI() {
   function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
     const itemCard = document.createElement('article');
     const itemTitle = document.createElement('h2');
-    const itemDescription = document.createElement('p');
-    const itemDueDate = document.createElement('p');
     const itemProject = document.createElement('p');
     const itemPriority = document.createElement('button');
     const itemIsDone = document.createElement('button');
@@ -40,7 +39,6 @@ export function todoUI() {
     itemPriority.setAttribute('data-priority', prio);
     itemIsDone.setAttribute('data-is-done', isDone);
 
-    itemDueDate.classList.add('due-date');
     itemPriority.classList.add('priority-btn');
     itemIsDone.classList.add('is-done-btn');
 
@@ -48,19 +46,25 @@ export function todoUI() {
     itemIsDone.addEventListener('click', handleClickIsDone);
 
     itemTitle.textContent = title;
-    itemDescription.textContent = desc;
-    itemDueDate.textContent = dueDate;
     itemProject.textContent = proj;
     itemPriority.textContent = prio;
 
-    itemCard.append(
-      itemTitle,
-      itemDescription,
-      itemDueDate,
-      itemProject,
-      itemPriority,
-      itemIsDone
-    );
+    itemCard.append(itemTitle, itemPriority, itemIsDone);
+
+    if (dueDate) {
+      const itemDueDate = document.createElement('p');
+      itemDueDate.classList.add('due-date');
+      itemDueDate.textContent = dueDate;
+      itemCard.appendChild(itemDueDate);
+    }
+
+    if (desc) {
+      const itemDescription = document.createElement('p');
+      itemDescription.textContent = desc;
+      itemCard.appendChild(itemDescription);
+    }
+
+    itemCard.appendChild(itemProject);
     main.appendChild(itemCard);
   }
 
@@ -87,6 +91,7 @@ export function todoUI() {
     const form = document.querySelector('#new-item-form');
     form.reset();
     newItemDialog.setAttribute('open', 'open');
+    overlay.classList.toggle('hidden');
   }
   newItemButton.addEventListener('click', handleClickNewItem);
 
@@ -100,6 +105,7 @@ export function todoUI() {
     if (title) {
       addTodoItem(title, description, dueDate, project, priority);
       createItemCard(title, description, dueDate, project, priority, false);
+      overlay.classList.toggle('hidden');
     }
   }
   addItemButton.addEventListener('click', handleClickAddItem);
@@ -110,6 +116,7 @@ export function todoUI() {
     const form = document.querySelector('#new-project-form');
     form.reset();
     newProjectDialog.setAttribute('open', 'open');
+    overlay.classList.toggle('hidden');
   }
   newProjectButton.addEventListener('click', handleClickNewProject);
 
@@ -120,6 +127,7 @@ export function todoUI() {
       addTodoProject(name);
       createNavItem(name);
       createProjectOption(name);
+      overlay.classList.toggle('hidden');
     }
   }
   addProjectButton.addEventListener('click', handleClickAddProject);
