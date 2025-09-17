@@ -4,13 +4,6 @@ export function todoUI() {
   const navList = document.querySelector('nav ul');
   const projSelect = document.querySelector('#project-select');
   const main = document.querySelector('main');
-  const newItemButton = document.querySelector('#new-item-btn');
-  const newItemDialog = document.querySelector('#new-item-dialog');
-  const addItemButton = document.querySelector('#add-item-btn');
-  const newProjectButton = document.querySelector('#new-project-btn');
-  const newProjectDialog = document.querySelector('#new-project-dialog');
-  const addProjectButton = document.querySelector('#add-project-btn');
-  const overlay = document.querySelector('.overlay');
 
   function createNavItem(name) {
     const navItem = document.createElement('li');
@@ -85,12 +78,20 @@ export function todoUI() {
     }
   }
 
+  const newItemButton = document.querySelector('#new-item-btn');
+  const addItemButton = document.querySelector('#add-item-btn');
+  const newProjectButton = document.querySelector('#new-project-btn');
+  const addProjectButton = document.querySelector('#add-project-btn');
+  const overlay = document.querySelector('.overlay');
+
   // Add todo item
 
   function handleClickNewItem() {
     const form = document.querySelector('#new-item-form');
+    const dialog = document.querySelector('#new-item-dialog');
+
     form.reset();
-    newItemDialog.setAttribute('open', 'open');
+    dialog.setAttribute('open', 'open');
     overlay.classList.toggle('hidden');
   }
   newItemButton.addEventListener('click', handleClickNewItem);
@@ -115,8 +116,10 @@ export function todoUI() {
 
   function handleClickNewProject() {
     const form = document.querySelector('#new-project-form');
+    const dialog = document.querySelector('#new-project-dialog');
+
     form.reset();
-    newProjectDialog.setAttribute('open', 'open');
+    dialog.setAttribute('open', 'open');
     overlay.classList.toggle('hidden');
   }
   newProjectButton.addEventListener('click', handleClickNewProject);
@@ -132,41 +135,41 @@ export function todoUI() {
     }
   }
   addProjectButton.addEventListener('click', handleClickAddProject);
+}
 
-  // Toggle is done
+// Toggle is done
 
-  function handleClickIsDone(event) {
-    const isDoneButton = event.target;
-    const card = event.target.parentElement;
-    const cardID = card.getAttribute('data-id');
-    const cardProject = card.getAttribute('data-project');
+function handleClickIsDone(event) {
+  const isDoneButton = event.target;
+  const card = event.target.parentElement;
+  const cardID = card.getAttribute('data-id');
+  const cardProject = card.getAttribute('data-project');
 
-    const todoProject = todoProjects.find(
-      (element) => element.name.toLowerCase() === cardProject
-    );
-    const todoItem = todoProject.todoItems.find(
-      (element) => element.id === cardID
-    );
-    todoItem.toggleIsDone();
-    isDoneButton.setAttribute('data-is-done', todoItem.isDone);
-  }
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === cardProject
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === cardID
+  );
+  todoItem.toggleIsDone();
+  isDoneButton.setAttribute('data-is-done', todoItem.isDone);
+}
 
-  // Change priority
+// Change priority
 
-  function handleClickPriority(event) {
-    const priorityButton = event.target;
-    const card = event.target.parentElement;
-    const cardID = card.getAttribute('data-id');
-    const cardProject = card.getAttribute('data-project');
+function handleClickPriority(event) {
+  const priorityButton = event.target;
+  const card = event.target.parentElement;
+  const cardID = card.getAttribute('data-id');
+  const cardProject = card.getAttribute('data-project');
 
-    const todoProject = todoProjects.find(
-      (element) => element.name.toLowerCase() === cardProject
-    );
-    const todoItem = todoProject.todoItems.find(
-      (element) => element.id === cardID
-    );
-    todoItem.changePriority();
-    priorityButton.textContent = todoItem.priority;
-    priorityButton.setAttribute('data-priority', todoItem.priority);
-  }
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === cardProject
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === cardID
+  );
+  todoItem.changePriority();
+  priorityButton.textContent = todoItem.priority;
+  priorityButton.setAttribute('data-priority', todoItem.priority);
 }
