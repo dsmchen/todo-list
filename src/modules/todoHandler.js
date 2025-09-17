@@ -48,8 +48,24 @@ class TodoItem {
   }
 }
 
-export function addTodoItem(title, description, dueDate, project, priority) {
-  let todoItem = new TodoItem(title, description, dueDate, project, priority);
+export function addTodoItem(
+  title,
+  description,
+  dueDate,
+  project,
+  priority,
+  isDone,
+  id
+) {
+  let todoItem = new TodoItem(
+    title,
+    description,
+    dueDate,
+    project,
+    priority,
+    isDone,
+    id
+  );
   for (const proj of todoProjects) {
     if (proj.name === project) {
       proj.todoItems.push(todoItem);

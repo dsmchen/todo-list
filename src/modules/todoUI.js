@@ -103,8 +103,9 @@ export function todoUI() {
     const project = document.querySelector('select[name=project]').value;
 
     if (title) {
-      addTodoItem(title, description, dueDate, project, priority);
-      createItemCard(title, description, dueDate, project, priority, false);
+      const id = crypto.randomUUID();
+      addTodoItem(title, description, dueDate, project, priority, false, id);
+      createItemCard(title, description, dueDate, project, priority, false, id);
       overlay.classList.toggle('hidden');
     }
   }
