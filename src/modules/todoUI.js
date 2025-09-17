@@ -8,6 +8,8 @@ export function todoUI() {
   function createNavItem(name) {
     const navItem = document.createElement('li');
     const navItemAnchor = document.createElement('a');
+    navItemAnchor.classList.add('project-view');
+    navItemAnchor.addEventListener('click', handleClickProjectView);
     navItemAnchor.textContent = name;
     navItem.appendChild(navItemAnchor);
     navList.appendChild(navItem);
@@ -173,3 +175,30 @@ function handleClickPriority(event) {
   priorityButton.textContent = todoItem.priority;
   priorityButton.setAttribute('data-priority', todoItem.priority);
 }
+
+// Change project view
+
+function handleClickProjectView(e) {
+  const projectViewName = e.target.textContent;
+  const heading = document.querySelector('h1');
+  const cards = document.querySelectorAll('article');
+
+  heading.textContent = projectViewName;
+
+  for (let i = 0; i < cards.length; i++) {
+    const cardProjectName = cards[i].getAttribute('data-project');
+    if (
+      projectViewName.toLowerCase() === cardProjectName ||
+      projectViewName.toLowerCase() === 'all'
+    ) {
+      cards[i].classList.remove('hidden');
+    } else {
+      cards[i].classList.add('hidden');
+    }
+  }
+}
+
+const projectViews = document.querySelectorAll('.project-view');
+projectViews.forEach((view) => {
+  view.addEventListener('click', handleClickProjectView);
+});
