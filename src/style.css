@@ -94,6 +94,11 @@ body {
   color: #111;
 }
 
+a,
+button {
+  cursor: pointer;
+}
+
 .content {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -123,7 +128,6 @@ nav ul a {
   display: block;
   padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer;
 }
 
 nav ul a:hover {
@@ -131,12 +135,25 @@ nav ul a:hover {
 }
 
 nav ul a.primary {
-  color: #1f883d;
+  color: #1b5e20;
   font-weight: bold;
 }
 
+nav ul a.primary,
 nav ul a.secondary {
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+nav ul a.primary:before,
+nav ul a.secondary:before {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  background: center no-repeat url(./assets/images/circle-plus.svg);
+  background-size: 15px;
 }
 
 header {
@@ -146,4 +163,80 @@ header {
 
 main {
   grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 40px;
+}
+
+article {
+  position: relative;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+  padding-left: 40px;
+}
+
+article .is-done-btn {
+  background: none;
+  position: absolute;
+  top: 25px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #aaa;
+}
+
+article .is-done-btn[data-is-done='true'] {
+  background: center no-repeat url(./assets/images/check.svg);
+  background-size: 15px;
+  border: 1px solid #111;
+}
+
+article .priority-btn {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  width: 20px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 5px;
+  border: 2px solid #aaa;
+  text-align: center;
+  font-weight: bold;
+  background: none;
+}
+
+article .priority-btn[data-priority='1'] {
+  border-color: #e53935;
+  background-color: #ffebee;
+}
+
+article .priority-btn[data-priority='2'] {
+  border-color: #fb8c00;
+  background-color: #fff3e0;
+}
+
+article .priority-btn[data-priority='3'] {
+  border-color: #fdd835;
+  background-color: #fffde7;
+}
+
+article h2 {
+  line-height: 1.2;
+}
+
+article .due-date {
+  display: flex;
+  align-items: center;
+}
+
+article .due-date:before {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  background: center no-repeat url(./assets/images/calendar.svg);
+  background-size: 15px;
 }

@@ -58,8 +58,19 @@ export function addTodoItem(title, description, dueDate, project, priority) {
   }
 }
 
-addTodoItem('Do 30 minutes of yoga', 'YouTube', 'Today', 'Personal');
-addTodoItem('Dentist appointment', 'Address', 'Tomorrow', 'Personal', 2);
+addTodoItem(
+  'Yoga class',
+  'Remember to bring yoga mat and towel',
+  'Today',
+  'Personal'
+);
+addTodoItem(
+  'Dentist appointment',
+  '8/F, Lucky Tower, 88 Main Street, Central',
+  'Tomorrow',
+  'Personal',
+  2
+);
 addTodoItem(
   'Prepare presentation',
   'Keep the talk and slides simple',
@@ -67,3 +78,5 @@ addTodoItem(
   'Work',
   1
 );
+addTodoItem('Call Eddie', 'Discuss team selection', 'Tomorrow', 'Work', 3);
+addTodoItem('Call Charli', 'Discuss forwards', 'Tomorrow', 'Work');

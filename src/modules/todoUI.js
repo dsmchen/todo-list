@@ -37,17 +37,21 @@ export function todoUI() {
 
     itemCard.setAttribute('data-id', id);
     itemCard.setAttribute('data-project', proj.toLowerCase());
-    itemIsDone.classList.add('is-done-btn');
-    itemIsDone.addEventListener('click', handleClickIsDone);
+    itemPriority.setAttribute('data-priority', prio);
+    itemIsDone.setAttribute('data-is-done', isDone);
+
+    itemDueDate.classList.add('due-date');
     itemPriority.classList.add('priority-btn');
+    itemIsDone.classList.add('is-done-btn');
+
     itemPriority.addEventListener('click', handleClickPriority);
+    itemIsDone.addEventListener('click', handleClickIsDone);
 
     itemTitle.textContent = title;
     itemDescription.textContent = desc;
     itemDueDate.textContent = dueDate;
     itemProject.textContent = proj;
     itemPriority.textContent = prio;
-    itemIsDone.textContent = isDone;
 
     itemCard.append(
       itemTitle,
@@ -135,7 +139,7 @@ export function todoUI() {
       (element) => element.id === cardID
     );
     todoItem.toggleIsDone();
-    isDoneButton.textContent = todoItem.isDone;
+    isDoneButton.setAttribute('data-is-done', todoItem.isDone);
   }
 
   // Change priority
@@ -154,5 +158,6 @@ export function todoUI() {
     );
     todoItem.changePriority();
     priorityButton.textContent = todoItem.priority;
+    priorityButton.setAttribute('data-priority', todoItem.priority);
   }
 }
