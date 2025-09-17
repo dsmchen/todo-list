@@ -1,4 +1,22 @@
-/* Font */
+/* Fonts */
+
+@font-face {
+  font-family: 'Inclusive Sans';
+  src: url('assets/fonts/InclusiveSans-Regular.woff2') format('woff2'),
+    url('assets/fonts/InclusiveSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inclusive Sans';
+  src: url('assets/fonts/InclusiveSans-Bold.woff2') format('woff2'),
+    url('assets/fonts/InclusiveSans-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
 
 /*
   Josh's Custom CSS Reset
@@ -70,3 +88,62 @@ h6 {
 }
 
 /* Todo List */
+
+body {
+  font-family: Inclusive Sans, Arial, Helvetica, sans-serif;
+  color: #111;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 128px 1fr; /* 80px padding + 48px font */
+  grid-template-areas:
+    'nav header'
+    'nav main';
+  gap: 40px;
+  height: 100vh;
+}
+
+nav {
+  grid-area: nav;
+  padding: 40px;
+  background-color: #eee;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+nav ul a {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+nav ul a:hover {
+  background-color: #fff;
+}
+
+nav ul a.primary {
+  color: #1f883d;
+  font-weight: bold;
+}
+
+nav ul a.secondary {
+  font-weight: bold;
+}
+
+header {
+  grid-area: header;
+  padding-top: 80px;
+}
+
+main {
+  grid-area: main;
+}

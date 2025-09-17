@@ -6,16 +6,23 @@
     <title>Todo List</title>
   </head>
   <body>
-    <header>
+    <div class="content">
       <nav>
         <ul>
-          <li>All</li>
+          <li>
+            <a id="new-item-btn" class="primary">New todo item</a>
+          </li>
+          <li>
+            <a id="new-project-btn" class="secondary">New project</a>
+          </li>
+          <li><a>All</a></li>
         </ul>
       </nav>
-      <button id="new-item-btn" class="primary">New todo item</button>
-      <button id="new-project-btn" class="secondary">New project</button>
-    </header>
-    <main></main>
+      <header>
+        <h1>All</h1>
+      </header>
+      <main></main>
+    </div>
     <dialog id="new-item-dialog">
       <form method="dialog" id="new-item-form">
         <h2>Add todo item</h2>

@@ -13,7 +13,9 @@ export function todoUI() {
 
   function createNavItem(name) {
     const navItem = document.createElement('li');
-    navItem.textContent = name;
+    const navItemAnchor = document.createElement('a');
+    navItemAnchor.textContent = name;
+    navItem.appendChild(navItemAnchor);
     navList.appendChild(navItem);
   }
 
