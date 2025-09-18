@@ -101,7 +101,7 @@ addTodoItem('Todo item 2');
 
 export function getTodoItem(itemProject, itemID) {
   const todoProject = todoProjects.find(
-    (element) => element.name.toLowerCase() === itemProject
+    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
   );
   const todoItem = todoProject.todoItems.find(
     (element) => element.id === itemID

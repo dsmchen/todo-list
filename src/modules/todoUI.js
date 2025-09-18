@@ -43,6 +43,7 @@ export function todoUI() {
     itemIsDone.setAttribute('data-is-done', isDone);
 
     itemTitle.classList.add('title');
+    itemProject.classList.add('project');
     itemProject.classList.add('hidden');
     itemPriority.classList.add('priority-btn');
     itemIsDone.classList.add('is-done-btn');
@@ -69,6 +70,7 @@ export function todoUI() {
 
     if (desc) {
       const itemDescription = document.createElement('p');
+      itemDescription.classList.add('description');
       itemDescription.classList.add('hidden');
       itemDescription.textContent = desc;
       itemCard.appendChild(itemDescription);
@@ -258,6 +260,7 @@ function handleClickEdit(e) {
   const editPriority = document.querySelector('#edit-priority');
   const editProjectSelect = document.querySelector('#edit-project-select');
   const itemID = document.querySelector('#itemID');
+  const itemProject = document.querySelector('#itemProject');
 
   const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
@@ -273,6 +276,7 @@ function handleClickEdit(e) {
   editPriority.value = todoItem.priority;
   editProjectSelect.value = todoItem.project;
   itemID.value = todoItem.id;
+  itemProject.value = todoItem.project;
 }
 const editButtons = document.querySelectorAll('.edit-btn');
 editButtons.forEach((btn) => btn.addEventListener('click', handleClickEdit));
@@ -289,15 +293,28 @@ function handleClickEditItem() {
     '#edit-project-select'
   ).value;
   const itemID = document.querySelector('#itemID').value;
+  const itemProject = document.querySelector('#itemProject').value;
 
-  const todoItem = getTodoItem(editProjectSelect.toLowerCase(), itemID);
-  console.log(todoItem);
+  const todoItem = getTodoItem(itemProject, itemID);
   todoItem.title = editTitle;
   todoItem.description = editDescription;
   todoItem.dueDate = editDueDate;
   todoItem.priority = editPriority;
-  todoItem.project = editProjectSelect; // TODO: debug
-  console.log(todoItem);
+  todoItem.project = editProjectSelect;
+
+  const card = document.querySelector(`article[data-id='${todoItem.id}']`);
+  const cardTitle = card.querySelector('.title');
+  const cardDueDate = card.querySelector('.due-date');
+  const cardDescription = card.querySelector('.description');
+  const cardProject = card.querySelector('.project');
+  const cardPriority = card.querySelector('.priority-btn');
+
+  cardTitle.textContent = todoItem.title;
+  cardDueDate.textContent = todoItem.dueDate;
+  cardDescription.textContent = todoItem.description;
+  cardProject.textContent = todoItem.project;
+  cardPriority.textContent = todoItem.priority;
+  cardPriority.setAttribute('data-priority', todoItem.priority);
 }
 const editItemButton = document.querySelector('#edit-item-btn');
 editItemButton.addEventListener('click', handleClickEditItem);
