@@ -175,6 +175,14 @@ nav ul a.secondary:before {
   width: 15px;
   height: 15px;
   margin-right: 5px;
+}
+
+nav ul a.primary:before {
+  background: center no-repeat url(./assets/images/circle-plus-green-900.svg);
+  background-size: 15px;
+}
+
+nav ul a.secondary:before {
   background: center no-repeat url(./assets/images/circle-plus.svg);
   background-size: 15px;
 }
