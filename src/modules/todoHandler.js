@@ -13,9 +13,6 @@ export function addTodoProject(name) {
   todoProjects.push(todoProject);
 }
 
-addTodoProject('Personal');
-addTodoProject('Work');
-
 class TodoItem {
   constructor(
     title,
@@ -74,6 +71,19 @@ export function addTodoItem(
   }
 }
 
+export function getTodoItem(itemProject, itemID) {
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === itemID
+  );
+  return todoItem;
+}
+
+addTodoProject('Personal');
+addTodoProject('Work');
+
 addTodoItem(
   'Yoga class',
   'Remember to bring yoga mat and towel',
@@ -98,13 +108,3 @@ addTodoItem('Call Eddie', 'Discuss team selection', '2025-10-01', 'Work', 3);
 addTodoItem('Call Charli', 'Discuss forwards', '2025-10-01', 'Work');
 addTodoItem('Todo item 1');
 addTodoItem('Todo item 2');
-
-export function getTodoItem(itemProject, itemID) {
-  const todoProject = todoProjects.find(
-    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
-  );
-  const todoItem = todoProject.todoItems.find(
-    (element) => element.id === itemID
-  );
-  return todoItem;
-}
