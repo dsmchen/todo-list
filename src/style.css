@@ -100,6 +100,11 @@ button {
   cursor: pointer;
 }
 
+a.primary,
+button.primary {
+  font-weight: bold;
+}
+
 .hidden {
   display: none;
 }
@@ -141,7 +146,6 @@ nav ul a:hover {
 
 nav ul a.primary {
   color: #1b5e20;
-  font-weight: bold;
 }
 
 nav ul a.primary,
@@ -312,11 +316,15 @@ form input:user-invalid {
   border-color: #e53935;
 }
 
+form .button-row {
+  display: flex;
+  justify-content: end;
+  gap: 5px;
+}
+
 form button {
   background: none;
-  width: 100%;
   border: 2px solid #aaa;
   border-radius: 10px;
   padding: 5px 10px;
-  font-weight: bold;
 }

@@ -52,7 +52,10 @@
           <label for="project">Project</label>
           <select name="project" id="project-select"></select>
         </div>
-        <button id="add-item-btn" class="primary">Add todo item</button>
+        <div class="button-row">
+          <button id="add-item-btn" class="primary">Add todo item</button>
+          <button class="secondary cancel-btn">Cancel</button>
+        </div>
       </form>
     </dialog>
     <dialog id="new-project-dialog">
@@ -62,7 +65,10 @@
           <label for="project-name">Name (required)</label>
           <input type="text" name="project-name" id="project-name" required />
         </div>
-        <button id="add-project-btn" class="primary">Add project</button>
+        <div class="button-row">
+          <button id="add-project-btn" class="primary">Add project</button>
+          <button class="secondary cancel-btn">Cancel</button>
+        </div>
       </form>
     </dialog>
   </body>

@@ -84,10 +84,6 @@ export function todoUI() {
     }
   }
 
-  const newItemButton = document.querySelector('#new-item-btn');
-  const addItemButton = document.querySelector('#add-item-btn');
-  const newProjectButton = document.querySelector('#new-project-btn');
-  const addProjectButton = document.querySelector('#add-project-btn');
   const overlay = document.querySelector('.overlay');
 
   // Add todo item
@@ -97,9 +93,10 @@ export function todoUI() {
     const dialog = document.querySelector('#new-item-dialog');
 
     form.reset();
-    dialog.setAttribute('open', 'open');
+    dialog.toggleAttribute('open');
     overlay.classList.toggle('hidden');
   }
+  const newItemButton = document.querySelector('#new-item-btn');
   newItemButton.addEventListener('click', handleClickNewItem);
 
   function handleClickAddItem() {
@@ -116,6 +113,7 @@ export function todoUI() {
       overlay.classList.toggle('hidden');
     }
   }
+  const addItemButton = document.querySelector('#add-item-btn');
   addItemButton.addEventListener('click', handleClickAddItem);
 
   // Add project
@@ -125,9 +123,10 @@ export function todoUI() {
     const dialog = document.querySelector('#new-project-dialog');
 
     form.reset();
-    dialog.setAttribute('open', 'open');
+    dialog.toggleAttribute('open');
     overlay.classList.toggle('hidden');
   }
+  const newProjectButton = document.querySelector('#new-project-btn');
   newProjectButton.addEventListener('click', handleClickNewProject);
 
   function handleClickAddProject() {
@@ -140,6 +139,7 @@ export function todoUI() {
       overlay.classList.toggle('hidden');
     }
   }
+  const addProjectButton = document.querySelector('#add-project-btn');
   addProjectButton.addEventListener('click', handleClickAddProject);
 }
 
@@ -224,3 +224,19 @@ const itemTitles = document.querySelectorAll('.title');
 itemTitles.forEach((title) => {
   view.addEventListener('click', handleClickItemTitle);
 });
+
+// Close dialog
+
+function handleClickCancel(e) {
+  e.preventDefault();
+
+  const dialog = e.target.closest('dialog');
+  const overlay = document.querySelector('.overlay');
+
+  dialog.toggleAttribute('open');
+  overlay.classList.toggle('hidden');
+}
+const cancelButtons = document.querySelectorAll('.cancel-btn');
+cancelButtons.forEach((btn) =>
+  btn.addEventListener('click', handleClickCancel)
+);
