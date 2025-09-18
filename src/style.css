@@ -89,9 +89,23 @@ h6 {
 
 /* Todo List */
 
+:root {
+  --red-50: #ffebee;
+  --red-600: #e53935;
+  --green-900: #1b5e20;
+  --yellow-50: #fffde7;
+  --yellow-600: #fdd835;
+  --orange-50: #fff3e0;
+  --orange-600: #fb8c00;
+  --gray-200: #eee;
+  --gray-400: #bdbdbd;
+  --gray-900: #212121;
+  --white: #fff;
+}
+
 body {
   font-family: Inclusive Sans, Arial, Helvetica, sans-serif;
-  color: #111;
+  color: var(--gray-900);
   position: relative;
 }
 
@@ -123,7 +137,7 @@ button.primary {
 nav {
   grid-area: nav;
   padding: 40px;
-  background-color: #eee;
+  background-color: var(--gray-200);
 }
 
 nav ul {
@@ -141,11 +155,11 @@ nav ul a {
 }
 
 nav ul a:hover {
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 nav ul a.primary {
-  color: #1b5e20;
+  color: var(--green-900);
 }
 
 nav ul a.primary,
@@ -181,7 +195,7 @@ main {
 
 article {
   position: relative;
-  border-top: 2px solid #eee;
+  border-top: 2px solid var(--gray-200);
   padding-top: 20px;
   padding-left: 60px;
   min-height: 80px;
@@ -195,13 +209,13 @@ article .is-done-btn {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid #aaa;
+  border: 2px solid var(--gray-400);
 }
 
 article .is-done-btn[data-is-done='true'] {
   background: center no-repeat url(./assets/images/check.svg);
   background-size: 15px;
-  border: 1px solid #111;
+  border: 1px solid var(--gray-900);
 }
 
 article .priority-btn {
@@ -212,24 +226,24 @@ article .priority-btn {
   padding-left: 2px;
   padding-right: 2px;
   border-radius: 5px;
-  border: 2px solid #aaa;
+  border: 2px solid var(--gray-400);
   text-align: center;
   background: none;
 }
 
 article .priority-btn[data-priority='1'] {
-  border-color: #e53935;
-  background-color: #ffebee;
+  border-color: var(--red-600);
+  background-color: var(--red-50);
 }
 
 article .priority-btn[data-priority='2'] {
-  border-color: #fb8c00;
-  background-color: #fff3e0;
+  border-color: var(--orange-600);
+  background-color: var(--orange-50);
 }
 
 article .priority-btn[data-priority='3'] {
-  border-color: #fdd835;
-  background-color: #fffde7;
+  border-color: var(--yellow-600);
+  background-color: var(--yellow-50);
 }
 
 article h2 {
@@ -314,7 +328,7 @@ article .delete-btn:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #111;
+  background-color: var(--gray-900);
   opacity: 0.5;
 }
 
@@ -323,7 +337,7 @@ dialog {
   top: 200px;
   left: 50%;
   transform: translateX(-50%);
-  border: 5px solid #111;
+  border: 5px solid var(--gray-900);
   border-radius: 10px;
   padding: 20px;
   width: 400px;
@@ -347,11 +361,11 @@ form label {
 form input {
   border-radius: 10px;
   padding: 5px 10px;
-  border: 2px solid #aaa;
+  border: 2px solid var(--gray-400);
 }
 
 form input:user-invalid {
-  border-color: #e53935;
+  border-color: var(--red-600);
 }
 
 form .button-row {
@@ -362,7 +376,7 @@ form .button-row {
 
 form button {
   background: none;
-  border: 2px solid #aaa;
+  border: 2px solid var(--gray-400);
   border-radius: 10px;
   padding: 5px 10px;
 }
