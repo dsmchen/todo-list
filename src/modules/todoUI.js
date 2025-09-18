@@ -1,8 +1,14 @@
-import { todoProjects, addTodoItem, addTodoProject } from './todoHandler';
+import {
+  todoProjects,
+  addTodoItem,
+  addTodoProject,
+  getTodoItem,
+} from './todoHandler';
 
 export function todoUI() {
   const navList = document.querySelector('nav ul');
   const projSelect = document.querySelector('#project-select');
+  const editProjSelect = document.querySelector('#edit-project-select');
   const main = document.querySelector('main');
 
   function createNavItem(name) {
@@ -20,6 +26,7 @@ export function todoUI() {
     projOption.textContent = name;
     projOption.value = name;
     projSelect.appendChild(projOption);
+    editProjSelect.appendChild(projOption);
   }
 
   function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
@@ -28,6 +35,7 @@ export function todoUI() {
     const itemProject = document.createElement('p');
     const itemPriority = document.createElement('button');
     const itemIsDone = document.createElement('button');
+    const itemEdit = document.createElement('button');
 
     itemCard.setAttribute('data-id', id);
     itemCard.setAttribute('data-project', proj.toLowerCase());
@@ -38,16 +46,19 @@ export function todoUI() {
     itemProject.classList.add('hidden');
     itemPriority.classList.add('priority-btn');
     itemIsDone.classList.add('is-done-btn');
+    itemEdit.classList.add('edit-btn');
 
     itemTitle.addEventListener('click', handleClickItemTitle);
     itemPriority.addEventListener('click', handleClickPriority);
     itemIsDone.addEventListener('click', handleClickIsDone);
+    itemEdit.addEventListener('click', handleClickEdit);
 
     itemTitle.textContent = title;
     itemProject.textContent = proj;
     itemPriority.textContent = prio;
+    itemEdit.textContent = 'Edit';
 
-    itemCard.append(itemTitle, itemPriority, itemIsDone);
+    itemCard.append(itemTitle, itemPriority, itemIsDone, itemEdit);
 
     if (dueDate) {
       const itemDueDate = document.createElement('p');
@@ -84,13 +95,12 @@ export function todoUI() {
     }
   }
 
-  const overlay = document.querySelector('.overlay');
-
   // Add todo item
 
   function handleClickNewItem() {
     const form = document.querySelector('#new-item-form');
     const dialog = document.querySelector('#new-item-dialog');
+    const overlay = document.querySelector('.overlay');
 
     form.reset();
     dialog.toggleAttribute('open');
@@ -108,6 +118,8 @@ export function todoUI() {
 
     if (title) {
       const id = crypto.randomUUID();
+      const overlay = document.querySelector('.overlay');
+
       addTodoItem(title, description, dueDate, project, priority, false, id);
       createItemCard(title, description, dueDate, project, priority, false, id);
       overlay.classList.toggle('hidden');
@@ -121,6 +133,7 @@ export function todoUI() {
   function handleClickNewProject() {
     const form = document.querySelector('#new-project-form');
     const dialog = document.querySelector('#new-project-dialog');
+    const overlay = document.querySelector('.overlay');
 
     form.reset();
     dialog.toggleAttribute('open');
@@ -133,6 +146,8 @@ export function todoUI() {
     const name = document.querySelector('input[name=project-name]').value;
 
     if (name) {
+      const overlay = document.querySelector('.overlay');
+
       addTodoProject(name);
       createNavItem(name);
       createProjectOption(name);
@@ -150,13 +165,8 @@ function handleClickIsDone(e) {
   const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
   const cardProject = card.getAttribute('data-project');
+  const todoItem = getTodoItem(cardProject, cardID);
 
-  const todoProject = todoProjects.find(
-    (element) => element.name.toLowerCase() === cardProject
-  );
-  const todoItem = todoProject.todoItems.find(
-    (element) => element.id === cardID
-  );
   todoItem.toggleIsDone();
   isDoneButton.setAttribute('data-is-done', todoItem.isDone);
 }
@@ -168,13 +178,8 @@ function handleClickPriority(e) {
   const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
   const cardProject = card.getAttribute('data-project');
+  const todoItem = getTodoItem(cardProject, cardID);
 
-  const todoProject = todoProjects.find(
-    (element) => element.name.toLowerCase() === cardProject
-  );
-  const todoItem = todoProject.todoItems.find(
-    (element) => element.id === cardID
-  );
   todoItem.changePriority();
   priorityButton.textContent = todoItem.priority;
   priorityButton.setAttribute('data-priority', todoItem.priority);
@@ -240,3 +245,59 @@ const cancelButtons = document.querySelectorAll('.cancel-btn');
 cancelButtons.forEach((btn) =>
   btn.addEventListener('click', handleClickCancel)
 );
+
+// Edit todo item
+
+function handleClickEdit(e) {
+  const dialog = document.querySelector('#edit-item-dialog');
+  const overlay = document.querySelector('.overlay');
+
+  const editTitle = document.querySelector('#edit-title');
+  const editDescription = document.querySelector('#edit-description');
+  const editDueDate = document.querySelector('#edit-due-date');
+  const editPriority = document.querySelector('#edit-priority');
+  const editProjectSelect = document.querySelector('#edit-project-select');
+  const itemID = document.querySelector('#itemID');
+
+  const card = e.target.parentElement;
+  const cardID = card.getAttribute('data-id');
+  const cardProject = card.getAttribute('data-project');
+  const todoItem = getTodoItem(cardProject, cardID);
+
+  dialog.toggleAttribute('open');
+  overlay.classList.toggle('hidden');
+
+  editTitle.value = todoItem.title;
+  editDescription.value = todoItem.description;
+  editDueDate.value = todoItem.dueDate;
+  editPriority.value = todoItem.priority;
+  editProjectSelect.value = todoItem.project;
+  itemID.value = todoItem.id;
+}
+const editButtons = document.querySelectorAll('.edit-btn');
+editButtons.forEach((btn) => btn.addEventListener('click', handleClickEdit));
+
+function handleClickEditItem() {
+  const overlay = document.querySelector('.overlay');
+  overlay.classList.toggle('hidden');
+
+  const editTitle = document.querySelector('#edit-title').value;
+  const editDescription = document.querySelector('#edit-description').value;
+  const editDueDate = document.querySelector('#edit-due-date').value;
+  const editPriority = document.querySelector('#edit-priority').value;
+  const editProjectSelect = document.querySelector(
+    '#edit-project-select'
+  ).value;
+  const itemID = document.querySelector('#itemID').value;
+
+  const todoItem = getTodoItem(editProjectSelect.toLowerCase(), itemID);
+  console.log(todoItem);
+  todoItem.title = editTitle;
+  todoItem.description = editDescription;
+  todoItem.dueDate = editDueDate;
+  todoItem.priority = editPriority;
+  todoItem.project = editProjectSelect; // TODO: debug
+  console.log(todoItem);
+}
+const editItemButton = document.querySelector('#edit-item-btn');
+editItemButton.addEventListener('click', handleClickEditItem);

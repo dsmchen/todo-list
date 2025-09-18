@@ -50,11 +50,11 @@ class TodoItem {
 
 export function addTodoItem(
   title,
-  description,
-  dueDate,
-  project,
-  priority,
-  isDone,
+  description = '',
+  dueDate = '',
+  project = 'Personal',
+  priority = 4,
+  isDone = false,
   id
 ) {
   let todoItem = new TodoItem(
@@ -77,22 +77,34 @@ export function addTodoItem(
 addTodoItem(
   'Yoga class',
   'Remember to bring yoga mat and towel',
-  'Today',
+  '2025-09-30',
   'Personal'
 );
 addTodoItem(
   'Dentist appointment',
   '8/F, Lucky Tower, 88 Main Street, Central',
-  'Tomorrow',
+  '2025-09-30',
   'Personal',
   2
 );
 addTodoItem(
   'Prepare presentation',
   'Keep the talk and slides simple',
-  'Tomorrow',
+  '2025-10-01',
   'Work',
   1
 );
-addTodoItem('Call Eddie', 'Discuss team selection', 'Tomorrow', 'Work', 3);
-addTodoItem('Call Charli', 'Discuss forwards', 'Tomorrow', 'Work');
+addTodoItem('Call Eddie', 'Discuss team selection', '2025-10-01', 'Work', 3);
+addTodoItem('Call Charli', 'Discuss forwards', '2025-10-01', 'Work');
+addTodoItem('Todo item 1');
+addTodoItem('Todo item 2');
+
+export function getTodoItem(itemProject, itemID) {
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === itemProject
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === itemID
+  );
+  return todoItem;
+}
