@@ -81,6 +81,15 @@ export function getTodoItem(itemProject, itemID) {
   return todoItem;
 }
 
+export function deleteTodoItem(itemProject, itemID) {
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
+  );
+  todoProject.todoItems = todoProject.todoItems.filter(
+    (element) => element.id !== itemID
+  );
+}
+
 addTodoProject('Personal');
 addTodoProject('Work');
 

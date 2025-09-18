@@ -270,12 +270,18 @@ article .due-date:before {
   background-size: 15px;
 }
 
-article .edit-btn {
+article .edit-btn,
+article .delete-btn {
   position: relative;
   padding-left: 20px;
 }
 
-article .edit-btn:before {
+article .delete-btn {
+  margin-left: 15px;
+}
+
+article .edit-btn:before,
+article .delete-btn:before {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -285,11 +291,20 @@ article .edit-btn:before {
   width: 15px;
   height: 15px;
   margin-right: 5px;
+}
+
+article .edit-btn:before {
   background: center no-repeat url(./assets/images/pencil.svg);
   background-size: 15px;
 }
 
-article .edit-btn:hover {
+article .delete-btn::before {
+  background: center no-repeat url(./assets/images/trash.svg);
+  background-size: 15px;
+}
+
+article .edit-btn:hover,
+article .delete-btn:hover {
   text-decoration: underline;
 }
 

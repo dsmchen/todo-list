@@ -1,4 +1,9 @@
-import { addTodoItem, addTodoProject, getTodoItem } from './todoHandler';
+import {
+  addTodoItem,
+  addTodoProject,
+  getTodoItem,
+  deleteTodoItem,
+} from './todoHandler';
 import { createItemCard, createNavItem, createProjectOption } from './todoUI';
 
 // Add todo item
@@ -122,6 +127,7 @@ export function handleClickItemTitle(e) {
   const card = e.target.parentElement;
   const paras = card.querySelectorAll('p');
   const editButton = card.querySelector('.edit-btn');
+  const deleteButton = card.querySelector('.delete-btn');
 
   e.target.classList.toggle('open');
 
@@ -129,6 +135,7 @@ export function handleClickItemTitle(e) {
     paras[i].classList.toggle('hidden');
   }
   editButton.classList.toggle('hidden');
+  deleteButton.classList.toggle('hidden');
 }
 const itemTitles = document.querySelectorAll('.title');
 itemTitles.forEach((title) => {
@@ -221,3 +228,13 @@ function handleClickEditItem() {
 }
 const editItemButton = document.querySelector('#edit-item-btn');
 editItemButton.addEventListener('click', handleClickEditItem);
+
+// Delete todo item
+
+export function handleClickDelete(e) {
+  const card = e.target.parentElement;
+  const cardID = card.getAttribute('data-id');
+  const cardProject = card.getAttribute('data-project');
+  deleteTodoItem(cardProject, cardID);
+  card.remove();
+}

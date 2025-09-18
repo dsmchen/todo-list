@@ -5,6 +5,7 @@ import {
   handleClickPriority,
   handleClickIsDone,
   handleClickEdit,
+  handleClickDelete,
 } from './clickHandler';
 
 export function createNavItem(name) {
@@ -40,6 +41,7 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   const itemPriority = document.createElement('button');
   const itemIsDone = document.createElement('button');
   const itemEdit = document.createElement('a');
+  const itemDelete = document.createElement('a');
 
   itemCard.setAttribute('data-id', id);
   itemCard.setAttribute('data-project', proj.toLowerCase());
@@ -53,16 +55,20 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   itemIsDone.classList.add('is-done-btn');
   itemEdit.classList.add('edit-btn');
   itemEdit.classList.add('hidden');
+  itemDelete.classList.add('delete-btn');
+  itemDelete.classList.add('hidden');
 
   itemTitle.addEventListener('click', handleClickItemTitle);
   itemPriority.addEventListener('click', handleClickPriority);
   itemIsDone.addEventListener('click', handleClickIsDone);
   itemEdit.addEventListener('click', handleClickEdit);
+  itemDelete.addEventListener('click', handleClickDelete);
 
   itemTitle.textContent = title;
   itemProject.textContent = proj;
   itemPriority.textContent = prio;
   itemEdit.textContent = 'Edit';
+  itemDelete.textContent = 'Delete';
 
   itemCard.append(itemTitle, itemPriority, itemIsDone);
 
@@ -81,7 +87,7 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
     itemCard.appendChild(itemDescription);
   }
 
-  itemCard.append(itemProject, itemEdit);
+  itemCard.append(itemProject, itemEdit, itemDelete);
   main.appendChild(itemCard);
 }
 
