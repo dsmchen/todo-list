@@ -270,6 +270,29 @@ article .due-date:before {
   background-size: 15px;
 }
 
+article .edit-btn {
+  position: relative;
+  padding-left: 20px;
+}
+
+article .edit-btn:before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  background: center no-repeat url(./assets/images/pencil.svg);
+  background-size: 15px;
+}
+
+article .edit-btn:hover {
+  text-decoration: underline;
+}
+
 .overlay {
   position: fixed;
   top: 0;

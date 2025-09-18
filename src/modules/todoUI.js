@@ -39,7 +39,7 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   const itemProject = document.createElement('p');
   const itemPriority = document.createElement('button');
   const itemIsDone = document.createElement('button');
-  const itemEdit = document.createElement('button');
+  const itemEdit = document.createElement('a');
 
   itemCard.setAttribute('data-id', id);
   itemCard.setAttribute('data-project', proj.toLowerCase());
@@ -52,6 +52,7 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   itemPriority.classList.add('priority-btn');
   itemIsDone.classList.add('is-done-btn');
   itemEdit.classList.add('edit-btn');
+  itemEdit.classList.add('hidden');
 
   itemTitle.addEventListener('click', handleClickItemTitle);
   itemPriority.addEventListener('click', handleClickPriority);
@@ -63,7 +64,7 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   itemPriority.textContent = prio;
   itemEdit.textContent = 'Edit';
 
-  itemCard.append(itemTitle, itemPriority, itemIsDone, itemEdit);
+  itemCard.append(itemTitle, itemPriority, itemIsDone);
 
   if (dueDate) {
     const itemDueDate = document.createElement('p');
@@ -80,7 +81,7 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
     itemCard.appendChild(itemDescription);
   }
 
-  itemCard.appendChild(itemProject);
+  itemCard.append(itemProject, itemEdit);
   main.appendChild(itemCard);
 }
 

@@ -120,13 +120,15 @@ projectViews.forEach((view) => {
 
 export function handleClickItemTitle(e) {
   const card = e.target.parentElement;
-  const para = card.querySelectorAll('p');
+  const paras = card.querySelectorAll('p');
+  const editButton = card.querySelector('.edit-btn');
 
   e.target.classList.toggle('open');
 
-  for (let i = 0; i < para.length; i++) {
-    para[i].classList.toggle('hidden');
+  for (let i = 0; i < paras.length; i++) {
+    paras[i].classList.toggle('hidden');
   }
+  editButton.classList.toggle('hidden');
 }
 const itemTitles = document.querySelectorAll('.title');
 itemTitles.forEach((title) => {
