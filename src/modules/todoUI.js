@@ -34,9 +34,12 @@ export function todoUI() {
     itemPriority.setAttribute('data-priority', prio);
     itemIsDone.setAttribute('data-is-done', isDone);
 
+    itemTitle.classList.add('title');
+    itemProject.classList.add('hidden');
     itemPriority.classList.add('priority-btn');
     itemIsDone.classList.add('is-done-btn');
 
+    itemTitle.addEventListener('click', handleClickItemTitle);
     itemPriority.addEventListener('click', handleClickPriority);
     itemIsDone.addEventListener('click', handleClickIsDone);
 
@@ -55,6 +58,7 @@ export function todoUI() {
 
     if (desc) {
       const itemDescription = document.createElement('p');
+      itemDescription.classList.add('hidden');
       itemDescription.textContent = desc;
       itemCard.appendChild(itemDescription);
     }
@@ -141,9 +145,9 @@ export function todoUI() {
 
 // Toggle is done
 
-function handleClickIsDone(event) {
-  const isDoneButton = event.target;
-  const card = event.target.parentElement;
+function handleClickIsDone(e) {
+  const isDoneButton = e.target;
+  const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
   const cardProject = card.getAttribute('data-project');
 
@@ -159,9 +163,9 @@ function handleClickIsDone(event) {
 
 // Change priority
 
-function handleClickPriority(event) {
-  const priorityButton = event.target;
-  const card = event.target.parentElement;
+function handleClickPriority(e) {
+  const priorityButton = e.target;
+  const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
   const cardProject = card.getAttribute('data-project');
 
@@ -201,4 +205,22 @@ function handleClickProjectView(e) {
 const projectViews = document.querySelectorAll('.project-view');
 projectViews.forEach((view) => {
   view.addEventListener('click', handleClickProjectView);
+});
+
+// Toggle todo item accordion
+
+function handleClickItemTitle(e) {
+  const card = e.target.parentElement;
+  const para = card.querySelectorAll('p');
+
+  e.target.classList.toggle('open');
+
+  for (let i = 0; i < para.length; i++) {
+    para[i].classList.toggle('hidden');
+  }
+}
+
+const itemTitles = document.querySelectorAll('.title');
+itemTitles.forEach((title) => {
+  view.addEventListener('click', handleClickItemTitle);
 });

@@ -100,6 +100,10 @@ button {
   cursor: pointer;
 }
 
+.hidden {
+  display: none;
+}
+
 .content {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -225,7 +229,26 @@ article .priority-btn[data-priority='3'] {
 }
 
 article h2 {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 5px;
   line-height: 1.2;
+  cursor: pointer;
+}
+
+article h2:after {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  background: center no-repeat url(./assets/images/chevron-down.svg);
+  background-size: 15px;
+}
+
+article h2.open:after {
+  background-image: url(./assets/images/chevron-up.svg);
 }
 
 article .due-date {
@@ -251,10 +274,6 @@ article .due-date:before {
   height: 100%;
   background-color: #111;
   opacity: 0.5;
-}
-
-.hidden {
-  display: none;
 }
 
 dialog {
