@@ -1,3 +1,5 @@
+import { storageAvailable } from './storageHandler';
+
 export let todoProjects = [];
 
 class TodoProject {
@@ -11,6 +13,15 @@ class TodoProject {
 export function addTodoProject(name) {
   let todoProject = new TodoProject(name);
   todoProjects.push(todoProject);
+
+  if (storageAvailable('localStorage')) {
+    localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
+  } else {
+    throw Error('Storage unavailable.');
+  }
+
+  const currentTodoProjects = localStorage.getItem('todoProjects');
+  console.log('currentTodoProjects', JSON.parse(currentTodoProjects));
 }
 
 class TodoItem {
