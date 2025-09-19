@@ -7,6 +7,7 @@ import {
   handleClickEdit,
   handleClickDelete,
 } from './clickHandler';
+import { format } from 'date-fns';
 
 export function createNavItem(name) {
   const navList = document.querySelector('nav ul');
@@ -37,6 +38,8 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   const main = document.querySelector('main');
   const itemCard = document.createElement('article');
   const itemTitle = document.createElement('h2');
+  const itemDescription = document.createElement('p');
+  const itemDueDate = document.createElement('p');
   const itemProject = document.createElement('p');
   const itemPriority = document.createElement('button');
   const itemIsDone = document.createElement('button');
@@ -49,6 +52,9 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   itemIsDone.setAttribute('data-is-done', isDone);
 
   itemTitle.classList.add('title');
+  itemDescription.classList.add('description');
+  itemDescription.classList.add('hidden');
+  itemDueDate.classList.add('due-date');
   itemProject.classList.add('project');
   itemProject.classList.add('hidden');
   itemPriority.classList.add('priority-btn');
@@ -73,21 +79,22 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   itemCard.append(itemTitle, itemPriority, itemIsDone);
 
   if (dueDate) {
-    const itemDueDate = document.createElement('p');
-    itemDueDate.classList.add('due-date');
-    itemDueDate.textContent = dueDate;
-    itemCard.appendChild(itemDueDate);
+    itemDueDate.textContent = format(new Date(dueDate), 'dd MMM yyyy');
+  } else {
+    itemDueDate.classList.add('hidden');
   }
 
   if (desc) {
-    const itemDescription = document.createElement('p');
-    itemDescription.classList.add('description');
-    itemDescription.classList.add('hidden');
     itemDescription.textContent = desc;
-    itemCard.appendChild(itemDescription);
   }
 
-  itemCard.append(itemProject, itemEdit, itemDelete);
+  itemCard.append(
+    itemDueDate,
+    itemDescription,
+    itemProject,
+    itemEdit,
+    itemDelete
+  );
   main.appendChild(itemCard);
 }
 

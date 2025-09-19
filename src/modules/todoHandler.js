@@ -96,24 +96,30 @@ addTodoProject('Work');
 addTodoItem(
   'Yoga class',
   'Remember to bring yoga mat and towel',
-  '2025-09-30',
+  new Date(),
   'Personal'
 );
 addTodoItem(
   'Dentist appointment',
   '8/F, Lucky Tower, 88 Main Street, Central',
-  '2025-09-30',
+  new Date(2025, 9, 30),
   'Personal',
   2
 );
 addTodoItem(
   'Prepare presentation',
   'Keep the talk and slides simple',
-  '2025-10-01',
+  new Date(2025, 9, 30),
   'Work',
   1
 );
-addTodoItem('Call Eddie', 'Discuss team selection', '2025-10-01', 'Work', 3);
-addTodoItem('Call Charli', 'Discuss forwards', '2025-10-01', 'Work');
+addTodoItem(
+  'Call Eddie',
+  'Discuss team selection',
+  new Date(2025, 10, 1),
+  'Work',
+  3
+);
+addTodoItem('Call Charli', 'Discuss forwards', new Date(2025, 10, 1), 'Work');
 addTodoItem('Todo item 1');
 addTodoItem('Todo item 2');

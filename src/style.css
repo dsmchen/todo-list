@@ -175,16 +175,17 @@ nav ul a.secondary:before {
   width: 15px;
   height: 15px;
   margin-right: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 15px;
 }
 
 nav ul a.primary:before {
-  background: center no-repeat url(./assets/images/circle-plus-green-800.svg);
-  background-size: 15px;
+  background-image: url(./assets/images/circle-plus-green-800.svg);
 }
 
 nav ul a.secondary:before {
-  background: center no-repeat url(./assets/images/circle-plus.svg);
-  background-size: 15px;
+  background-image: url(./assets/images/circle-plus.svg);
 }
 
 header {
@@ -221,8 +222,10 @@ article .is-done-btn {
 }
 
 article .is-done-btn[data-is-done='true'] {
-  background: center no-repeat url(./assets/images/check.svg);
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: 15px;
+  background-image: url(./assets/images/check.svg);
   border: 1px solid var(--gray-900);
 }
 
@@ -269,29 +272,17 @@ article h2:after {
   width: 15px;
   height: 15px;
   margin-left: 5px;
-  background: center no-repeat url(./assets/images/chevron-down.svg);
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: 15px;
+  background-image: url(./assets/images/chevron-down.svg);
 }
 
 article h2.open:after {
   background-image: url(./assets/images/chevron-up.svg);
 }
 
-article .due-date {
-  display: flex;
-  align-items: center;
-}
-
-article .due-date:before {
-  content: '';
-  display: block;
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-  background: center no-repeat url(./assets/images/calendar.svg);
-  background-size: 15px;
-}
-
+article .due-date,
 article .edit-btn,
 article .delete-btn {
   position: relative;
@@ -302,6 +293,7 @@ article .delete-btn {
   margin-left: 15px;
 }
 
+article .due-date:before,
 article .edit-btn:before,
 article .delete-btn:before {
   position: absolute;
@@ -313,16 +305,21 @@ article .delete-btn:before {
   width: 15px;
   height: 15px;
   margin-right: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 15px;
+}
+
+article .due-date:before {
+  background-image: url(./assets/images/calendar.svg);
 }
 
 article .edit-btn:before {
-  background: center no-repeat url(./assets/images/pencil.svg);
-  background-size: 15px;
+  background-image: url(./assets/images/pencil.svg);
 }
 
 article .delete-btn::before {
-  background: center no-repeat url(./assets/images/trash.svg);
-  background-size: 15px;
+  background-image: url(./assets/images/trash.svg);
 }
 
 article .edit-btn:hover,

@@ -5,6 +5,7 @@ import {
   deleteTodoItem,
 } from './todoHandler';
 import { createItemCard, createNavItem, createProjectOption } from './todoUI';
+import { format } from 'date-fns';
 
 // Add todo item
 
@@ -125,15 +126,25 @@ projectViews.forEach((view) => {
 
 export function handleClickItemTitle(e) {
   const card = e.target.parentElement;
-  const paras = card.querySelectorAll('p');
+  const dueDate = card.querySelector('.due-date');
+  const description = card.querySelector('.description');
+  const project = card.querySelector('.project');
   const editButton = card.querySelector('.edit-btn');
   const deleteButton = card.querySelector('.delete-btn');
 
   e.target.classList.toggle('open');
 
-  for (let i = 0; i < paras.length; i++) {
-    paras[i].classList.toggle('hidden');
+  if (dueDate.textContent) {
+    dueDate.classList.remove('hidden');
+  } else {
+    dueDate.classList.add('hidden');
   }
+
+  if (description.textContent) {
+    description.classList.toggle('hidden');
+  }
+
+  project.classList.toggle('hidden');
   editButton.classList.toggle('hidden');
   deleteButton.classList.toggle('hidden');
 }
@@ -182,11 +193,16 @@ export function handleClickEdit(e) {
 
   editTitle.value = todoItem.title;
   editDescription.value = todoItem.description;
-  editDueDate.value = todoItem.dueDate;
   editPriority.value = todoItem.priority;
   editProjectSelect.value = todoItem.project;
   itemID.value = todoItem.id;
   itemProject.value = todoItem.project;
+
+  if (todoItem.dueDate) {
+    editDueDate.value = format(todoItem.dueDate, 'yyyy-MM-dd');
+  } else {
+    editDueDate.value = '';
+  }
 }
 const editButtons = document.querySelectorAll('.edit-btn');
 editButtons.forEach((btn) => btn.addEventListener('click', handleClickEdit));
@@ -220,11 +236,19 @@ function handleClickEditItem() {
   const cardPriority = card.querySelector('.priority-btn');
 
   cardTitle.textContent = todoItem.title;
-  cardDueDate.textContent = todoItem.dueDate;
-  cardDescription.textContent = todoItem.description;
   cardProject.textContent = todoItem.project;
   cardPriority.textContent = todoItem.priority;
   cardPriority.setAttribute('data-priority', todoItem.priority);
+
+  if (todoItem.dueDate) {
+    cardDueDate.textContent = format(todoItem.dueDate, 'dd MMM yyyy');
+    cardDueDate.classList.remove('hidden');
+  }
+
+  if (todoItem.description) {
+    cardDescription.textContent = todoItem.description;
+    cardDescription.classList.remove('hidden');
+  }
 }
 const editItemButton = document.querySelector('#edit-item-btn');
 editItemButton.addEventListener('click', handleClickEditItem);
