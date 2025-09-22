@@ -1,6 +1,13 @@
 import { storageAvailable } from './storageHandler';
+import { toggleCtaButtons } from './todoUI';
 
-export let todoProjects = [];
+if (storageAvailable('localStorage')) {
+  if (!localStorage.getItem('todoProjects')) {
+    localStorage.setItem('todoProjects', '[]');
+  }
+} else {
+  throw new Error('Storage unavailable.');
+}
 
 class TodoProject {
   constructor(name, todoItems = [], id = crypto.randomUUID()) {
@@ -11,17 +18,13 @@ class TodoProject {
 }
 
 export function addTodoProject(name) {
-  let todoProject = new TodoProject(name);
-  todoProjects.push(todoProject);
-
-  if (storageAvailable('localStorage')) {
-    localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
-  } else {
-    throw Error('Storage unavailable.');
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
+  if (todoProjects.length === 0) {
+    toggleCtaButtons();
   }
-
-  const currentTodoProjects = localStorage.getItem('todoProjects');
-  console.log('currentTodoProjects', JSON.parse(currentTodoProjects));
+  const todoProject = new TodoProject(name);
+  todoProjects.push(todoProject);
+  localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
 }
 
 class TodoItem {
@@ -65,7 +68,8 @@ export function addTodoItem(
   isDone = false,
   id
 ) {
-  let todoItem = new TodoItem(
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
+  const todoItem = new TodoItem(
     title,
     description,
     dueDate,
@@ -80,9 +84,11 @@ export function addTodoItem(
       break;
     }
   }
+  localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
 }
 
 export function getTodoItem(itemProject, itemID) {
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
   const todoProject = todoProjects.find(
     (element) => element.name.toLowerCase() === itemProject.toLowerCase()
   );
@@ -93,44 +99,12 @@ export function getTodoItem(itemProject, itemID) {
 }
 
 export function deleteTodoItem(itemProject, itemID) {
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
   const todoProject = todoProjects.find(
     (element) => element.name.toLowerCase() === itemProject.toLowerCase()
   );
   todoProject.todoItems = todoProject.todoItems.filter(
     (element) => element.id !== itemID
   );
+  localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
 }
-
-addTodoProject('Personal');
-addTodoProject('Work');
-
-addTodoItem(
-  'Yoga class',
-  'Remember to bring yoga mat and towel',
-  new Date(),
-  'Personal'
-);
-addTodoItem(
-  'Dentist appointment',
-  '8/F, Lucky Tower, 88 Main Street, Central',
-  new Date(2025, 9, 30),
-  'Personal',
-  2
-);
-addTodoItem(
-  'Prepare presentation',
-  'Keep the talk and slides simple',
-  new Date(2025, 9, 30),
-  'Work',
-  1
-);
-addTodoItem(
-  'Call Eddie',
-  'Discuss team selection',
-  new Date(2025, 10, 1),
-  'Work',
-  3
-);
-addTodoItem('Call Charli', 'Discuss forwards', new Date(2025, 10, 1), 'Work');
-addTodoItem('Todo item 1');
-addTodoItem('Todo item 2');

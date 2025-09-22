@@ -164,12 +164,16 @@ nav ul a.primary {
 
 nav ul a.primary,
 nav ul a.secondary {
-  display: flex;
-  align-items: center;
+  position: relative;
+  padding-left: 30px;
 }
 
 nav ul a.primary:before,
 nav ul a.secondary:before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
   content: '';
   display: block;
   width: 15px;

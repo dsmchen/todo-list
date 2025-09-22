@@ -1,4 +1,3 @@
-import { todoProjects } from './todoHandler';
 import {
   handleClickProjectView,
   handleClickItemTitle,
@@ -98,21 +97,35 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   main.appendChild(itemCard);
 }
 
-export function todoUI() {
-  for (const proj of todoProjects) {
-    createNavItem(proj.name);
-    createProjectOption(proj.name);
+export function toggleCtaButtons() {
+  const newItemButton = document.querySelector('#new-item-btn');
+  const newProjectButton = document.querySelector('#new-project-btn');
 
-    for (const item of proj.todoItems) {
-      createItemCard(
-        item.title,
-        item.description,
-        item.dueDate,
-        item.project,
-        item.priority,
-        item.isDone,
-        item.id
-      );
+  newItemButton.classList.toggle('hidden');
+  newProjectButton.classList.toggle('secondary');
+  newProjectButton.classList.toggle('primary');
+}
+
+export function todoUI() {
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
+  if (todoProjects.length === 0) {
+    toggleCtaButtons();
+  } else {
+    for (const proj of todoProjects) {
+      createNavItem(proj.name);
+      createProjectOption(proj.name);
+
+      for (const item of proj.todoItems) {
+        createItemCard(
+          item.title,
+          item.description,
+          item.dueDate,
+          item.project,
+          item.priority,
+          item.isDone,
+          item.id
+        );
+      }
     }
   }
 }
