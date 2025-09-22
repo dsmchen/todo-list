@@ -34,6 +34,7 @@ export function createProjectOption(name) {
 }
 
 export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
+  const currentProject = document.querySelector('h1').textContent.toLowerCase();
   const main = document.querySelector('main');
   const itemCard = document.createElement('article');
   const itemTitle = document.createElement('h2');
@@ -49,6 +50,10 @@ export function createItemCard(title, desc, dueDate, proj, prio, isDone, id) {
   itemCard.setAttribute('data-project', proj.toLowerCase());
   itemPriority.setAttribute('data-priority', prio);
   itemIsDone.setAttribute('data-is-done', isDone);
+
+  if (currentProject !== proj.toLowerCase() && currentProject !== 'all') {
+    itemCard.classList.add('hidden');
+  }
 
   itemTitle.classList.add('title');
   itemDescription.classList.add('description');
