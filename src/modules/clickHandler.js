@@ -4,6 +4,7 @@ import {
   getTodoItem,
   toggleTodoItemIsDone,
   changeTodoItemPriority,
+  editTodoItem,
   deleteTodoItem,
 } from './todoHandler';
 import { createItemCard, createNavItem, createProjectOption } from './todoUI';
@@ -219,12 +220,15 @@ function handleClickEditItem() {
   const itemID = document.querySelector('#itemID').value;
   const itemProject = document.querySelector('#itemProject').value;
 
-  const todoItem = getTodoItem(itemProject, itemID);
-  todoItem.title = editTitle;
-  todoItem.description = editDescription;
-  todoItem.dueDate = editDueDate;
-  todoItem.priority = editPriority;
-  todoItem.project = editProjectSelect;
+  const todoItem = editTodoItem(
+    itemProject,
+    itemID,
+    editTitle,
+    editDescription,
+    editDueDate,
+    editPriority,
+    editProjectSelect
+  );
 
   const card = document.querySelector(`article[data-id='${todoItem.id}']`);
   const cardTitle = card.querySelector('.title');
@@ -235,6 +239,7 @@ function handleClickEditItem() {
 
   cardTitle.textContent = todoItem.title;
   cardProject.textContent = todoItem.project;
+  card.setAttribute('data-project', todoItem.project.toLowerCase());
   cardPriority.textContent = todoItem.priority;
   cardPriority.setAttribute('data-priority', todoItem.priority);
 

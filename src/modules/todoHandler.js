@@ -120,6 +120,46 @@ export function changeTodoItemPriority(itemProject, itemID) {
   return todoItem;
 }
 
+export function editTodoItem(
+  itemProject,
+  itemID,
+  title,
+  desc,
+  dueDate,
+  prio,
+  proj
+) {
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === itemID
+  );
+
+  todoItem.title = title;
+  todoItem.description = desc;
+  todoItem.dueDate = dueDate;
+  todoItem.priority = prio;
+  todoItem.project = proj;
+
+  if (itemProject.toLowerCase() !== proj.toLowerCase()) {
+    // Remove todo item from old project
+    todoProject.todoItems = todoProject.todoItems.filter(
+      (element) => element.id !== itemID
+    );
+
+    // Add todo item to new project
+    const newTodoProject = todoProjects.find(
+      (element) => element.name.toLowerCase() === proj.toLowerCase()
+    );
+    newTodoProject.todoItems.push(todoItem);
+  }
+
+  localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
+
+  return todoItem;
+}
 
 export function deleteTodoItem(itemProject, itemID) {
   const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
