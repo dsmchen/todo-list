@@ -2,6 +2,8 @@ import {
   addTodoItem,
   addTodoProject,
   getTodoItem,
+  toggleTodoItemIsDone,
+  changeTodoItemPriority,
   deleteTodoItem,
 } from './todoHandler';
 import { createItemCard, createNavItem, createProjectOption } from './todoUI';
@@ -76,9 +78,7 @@ export function handleClickIsDone(e) {
   const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
   const cardProject = card.getAttribute('data-project');
-  const todoItem = getTodoItem(cardProject, cardID);
-
-  todoItem.toggleIsDone();
+  const todoItem = toggleTodoItemIsDone(cardProject, cardID);
   isDoneButton.setAttribute('data-is-done', todoItem.isDone);
 }
 
@@ -89,9 +89,7 @@ export function handleClickPriority(e) {
   const card = e.target.parentElement;
   const cardID = card.getAttribute('data-id');
   const cardProject = card.getAttribute('data-project');
-  const todoItem = getTodoItem(cardProject, cardID);
-
-  todoItem.changePriority();
+  const todoItem = changeTodoItemPriority(cardProject, cardID);
   priorityButton.textContent = todoItem.priority;
   priorityButton.setAttribute('data-priority', todoItem.priority);
 }

@@ -45,18 +45,6 @@ class TodoItem {
     this.isDone = isDone;
     this.id = id;
   }
-
-  changePriority() {
-    if (this.priority < 4) {
-      this.priority++;
-    } else {
-      this.priority = 1;
-    }
-  }
-
-  toggleIsDone() {
-    this.isDone = !this.isDone;
-  }
 }
 
 export function addTodoItem(
@@ -97,6 +85,41 @@ export function getTodoItem(itemProject, itemID) {
   );
   return todoItem;
 }
+
+export function toggleTodoItemIsDone(itemProject, itemID) {
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === itemID
+  );
+
+  todoItem.isDone = !todoItem.isDone;
+  localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
+
+  return todoItem;
+}
+
+export function changeTodoItemPriority(itemProject, itemID) {
+  const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
+  const todoProject = todoProjects.find(
+    (element) => element.name.toLowerCase() === itemProject.toLowerCase()
+  );
+  const todoItem = todoProject.todoItems.find(
+    (element) => element.id === itemID
+  );
+
+  if (todoItem.priority < 4) {
+    todoItem.priority++;
+  } else {
+    todoItem.priority = 1;
+  }
+  localStorage.setItem('todoProjects', JSON.stringify(todoProjects));
+
+  return todoItem;
+}
+
 
 export function deleteTodoItem(itemProject, itemID) {
   const todoProjects = JSON.parse(localStorage.getItem('todoProjects'));
