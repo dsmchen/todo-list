@@ -1,7 +1,7 @@
 {
-  "name": "restaurant-page",
+  "name": "todo-list",
   "version": "1.0.0",
-  "description": "The Odin Project: Restaurant Page (https://www.theodinproject.com/lessons/node-path-javascript-restaurant-page)",
+  "description": "The Odin Project: Todo List (https://www.theodinproject.com/lessons/node-path-javascript-todo-list)",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open --config webpack.dev.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dsmchen/restaurant-page.git"
+    "url": "git+https://github.com/dsmchen/todo-list.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dsmchen/restaurant-page/issues"
+    "url": "https://github.com/dsmchen/todo-list/issues"
   },
-  "homepage": "https://github.com/dsmchen/restaurant-page#readme",
+  "homepage": "https://github.com/dsmchen/todo-list#readme",
   "devDependencies": {
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.4",
